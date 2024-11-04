@@ -1,6 +1,22 @@
+from statistics_service import StatisticsService, SortBy
 from player_reader import PlayerReader
 
+from enum import Enum
 
+class SortBy(Enum):
+    POINTS = 1
+    GOALS = 2
+    ASSISTS = 3
+
+def sort_by_points(player):
+    return player.points
+
+def sort_by_goals(player):
+    return player.goals
+
+def sort_by_assists(player):
+    return player.assists
+    
 
 class StatisticsService:
     def __init__(self, reader):
