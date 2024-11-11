@@ -1,14 +1,13 @@
 
-from player import PlayerStats
+from player import PlayerStats,PlayerReader
 
 def main():
     url = "https://studies.cs.helsinki.fi/nhlstats/2023-24/players"
-    stats = PlayerStats(url)
+    reader = PlayerReader(url)
+    stats = PlayerStats(reader)
+    players = stats.top_scorers_by_nationality("FIN")
 
-    finnish_players = stats.get_finnish_players_sorted()
-
-    print("Players from FIN\n")
-    for player in finnish_players:
+    for player in players:
         print(player)
 
 if __name__ == "__main__":

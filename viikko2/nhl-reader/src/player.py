@@ -15,15 +15,18 @@ class Player:
     def __str__(self):
         return f"{self.name:20} team {self.team}  goals {self.goals} + assists {self.assists}= {self.points}"
 
-class PlayerStats:
+class PlayerReader:
     def __init__(self, url):
         self.url = url
-        self.players = self.fetch_data()
-    
-    def fetch_data(self):
+
+    def get_players(self):
         response = requests.get(self.url).json()
         return [Player(player_data) for player_data in response]
-    
-    def get_finnish_players_sorted(self):
-        finnish_players = filter(lambda player: player.nationality == "FIN", self.players)
-        return sorted(finnish_players, key=lambda player: player.points, reverse=True)
+
+class PlayerStats:
+    def __init__(self, player_reader):
+        self.players = player_reader.get_players()
+
+    def top_scorers_by_nationality(self, nationality):
+        filtered_players = filter(lambda player: player.nationality == nationality, self.players)
+        return sorted(filtered_players, key=lambda player: player.points, reverse=True)
