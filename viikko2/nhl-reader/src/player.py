@@ -7,25 +7,23 @@ class Player:
         self.team = dict['team']
         self.goals = dict['goals']
         self.assists = dict['assists']
+
+    @property
+    def points(self):
+        return self.goals + self.assists
     
     def __str__(self):
-        return f"{self.name} team {self.team}  goals {self.goals} assists {self.assists}"
+        return f"{self.name:20} team {self.team}  goals {self.goals} + assists {self.assists}= {self.points}"
 
 class PlayerStats:
-    def __init__(self):
-        self.url = "https://studies.cs.helsinki.fi/nhlstats/2023-24/players"
-        self.players = []
-
-    def fetch_finnish_players(self):       
+    def __init__(self, url):
+        self.url = url
+        self.players = self.fetch_data()
+    
+    def fetch_data(self):
         response = requests.get(self.url).json()
-        
-        for player_dict in response:
-            player = Player(player_dict)
-            if player.nationality == "FIN":
-                self.players.append(player)
-
-    def display_finnish_players(self):
-
-        print("Players from FIN:")
-        for player in self.players:
-            print(player)
+        return [Player(player_data) for player_data in response]
+    
+    def get_finnish_players_sorted(self):
+        finnish_players = filter(lambda player: player.nationality == "FIN", self.players)
+        return sorted(finnish_players, key=lambda player: player.points, reverse=True)
