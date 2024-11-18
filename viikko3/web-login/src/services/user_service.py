@@ -21,6 +21,8 @@ class UserService:
             raise UserInputError("Username and password are required")
 
         user = self._user_repository.find_by_username(username)
+        if not user:
+            raise AuthenticationError("Nonexistent Username")
 
         if not user or user.password != password:
             raise AuthenticationError("Invalid username or password")
@@ -39,6 +41,7 @@ class UserService:
     def validate(self, username, password, password_confirmation):
         if not username or not password:
             raise UserInputError("Username and password are required")
+        
 
         # toteuta loput tarkastukset tänne ja nosta virhe virhetilanteissa
 
