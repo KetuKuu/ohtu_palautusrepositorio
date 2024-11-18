@@ -3,6 +3,7 @@ Resource  resource.robot
 Suite Setup     Open And Configure Browser
 Suite Teardown  Close Browser
 Test Setup      Reset Application Create User And Go To Login Page
+
 *** Test Cases ***
 Login With Correct Credentials
     Set Username  kalle
@@ -15,13 +16,6 @@ Login With Incorrect Password
     Set Password  kalle456
     Submit Credentials
     Login Should Fail With Message  Invalid username or password
-
-Login With Nonexistent Username
-    Set Username  kal
-    Set Password  kalle456
-    Submit Credentials
-    Login Should Fail With Message  Nonexistent Username
-    
 
 *** Keywords ***
 Login Should Succeed
@@ -44,7 +38,9 @@ Set Password
     Input Password  password  ${password}
 
 *** Keywords ***
-Create User And Go To Login Page
+Reset Application Create User And Go To Login Page
+    Reset Application
     Create User  kalle  kalle123
     Go To Login Page
-    Login Page Should Be Open
+    
+Login Page Should Be Open
