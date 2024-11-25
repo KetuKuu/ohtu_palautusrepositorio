@@ -121,7 +121,6 @@ class TestKauppa(unittest.TestCase):
     def test_saman_tuotteen_poistaminen_korista_toimii(self):
         self.kauppa.aloita_asiointi()
         self.kauppa.lisaa_koriin(1) 
-        self.kauppa.lisaa_koriin(1) 
         self.kauppa.poista_korista(1)  
         self.kauppa.tilimaksu("pekka", "12345")
 
