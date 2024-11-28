@@ -9,7 +9,7 @@ Test Setup      Reset Application Create User And Go To Register Page
 Register With Valid Username And Password
     Set Username  kalle
     Set Password  kalle123
-    Confirm Password  kalle123
+    set Confirm Password  kalle123
     Submit Registration
     Registration Should Succeed
 # ...
@@ -17,7 +17,7 @@ Register With Valid Username And Password
 Register With Too Short Username And Valid Password
     Set Username  kal
     Set Password  kalle123
-    Confirm Password  kalle123
+    set Confirm Password  kalle123
     Submit Registration
     Registration Should Fail With Message  Username must be at least 3 characters long and consist of lowercase letters a-z
 # ...
@@ -25,7 +25,7 @@ Register With Too Short Username And Valid Password
 Register With Valid Username And Too Short Password
     Set Username  kalle
     Set Password  kalle12
-    Confirm Password  kalle12
+    set Confirm Password  kalle12
     Submit Registration
     Registration Should Fail With Message  Password must be at least 8 characters long
     
@@ -34,7 +34,7 @@ Register With Valid Username And Too Short Password
 Register With Valid Username And Invalid Password
     Set Username  kalle
     Set Password  kalle
-    Confirm Password  kalle
+    set Confirm Password  kalle
     Submit Registration
     Registration Should Fail With Message  Password cannot consist only of letters
 # salasana ei sisällä halutunlaisia merkkejä
@@ -43,7 +43,7 @@ Register With Valid Username And Invalid Password
 Register With Nonmatching Password And Password Confirmation
     Set Username  kalle
     Set Password  kalle123
-    Confirm Password  kalle456
+    set Confirm Password  kalle456
     Submit Registration
     Registration Should Fail With Message  Password and password confirmation do not match
 # ...
@@ -52,10 +52,39 @@ Register With Username That Is Already In Use
     Create User  existinguser  Valid123!
     Set Username  existinguser
     Set Password  Valid123!
-    Confirm Password  Valid123!
+    set Confirm Password  Valid123!
     Submit Registration
     Registration Should Fail With Message  Username is already use
 #
+Login After Successful Registration
+
+    Set Username  kalle
+    Set Password  kalle123
+    set Confirm Password  kalle123
+    Submit Registration
+    Wait Until Page Contains  Ohtu Application main page
+    Registration Should Succeed
+    Logout
+    Set Username  kalle
+    Set Password  kalle123
+    Submit Credentials
+    Login Should Succeed
+#8
+Login After Failed Registration
+    Set Username  kalle
+    Set Password  kalle123
+    set Confirm Password  kalle12  
+    Submit Registration
+    Wait Until Page Contains  Password and password confirmation do not match
+    Registration Should Fail With Message  Password and password confirmation do not match
+    Set Username  kalle
+    Set Password  kalle123
+    Submit Credentials
+    Login Should Fail With Message  Invalid username or password
+
+
+
+
 
 *** Keywords ***
 Set Username
@@ -66,7 +95,7 @@ Set Password
     [Arguments]  ${password}
     Input Password  password  ${password}
 
-Confirm Password 
+set Confirm Password 
     [Arguments]  ${password}
     Input Password  password_confirmation  ${password}
 
