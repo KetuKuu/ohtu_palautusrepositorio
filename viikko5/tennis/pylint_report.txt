@@ -1,0 +1,7 @@
+************* Module index
+src/index.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+src/index.py:4:0: C0116: Missing function or method docstring (missing-function-docstring)
+
+------------------------------------------------------------------
+Your code has been rated at 8.75/10 (previous run: 8.75/10, +0.00)
+
