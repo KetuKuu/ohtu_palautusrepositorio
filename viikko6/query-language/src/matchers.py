@@ -58,7 +58,10 @@ class HasFewerThan:
 
 class QueryBuilder:
     def __init__(self, matcher=All()):
-        self._matcher = matcher
+        self._matcher = And(matcher)
+    
+    def one_of(self, *conditions):
+        return QueryBuilder(Or(*conditions))
 
     def plays_in(self, team):
         return QueryBuilder(And(self._matcher, PlaysIn(team)))
@@ -71,9 +74,6 @@ class QueryBuilder:
 
     def one_of(self, *conditions):
         return QueryBuilder(Or(*conditions))
-
-    def not_(self, condition):
-        return QueryBuilder(And(self._matcher, Not(condition)))
 
     def build(self):
         return self._matcher
