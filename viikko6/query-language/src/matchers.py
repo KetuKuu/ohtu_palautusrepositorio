@@ -8,7 +8,13 @@ class And:
                 return False
 
         return True
+    
+class Or:
+    def __init__(self, *matchers):
+        self.matchers = matchers
 
+    def test(self, player):
+        return any(matcher.test(player) for matcher in self.matchers)
 
 class PlaysIn:
     def __init__(self, team):
@@ -49,6 +55,9 @@ class HasFewerThan:
 
     def test (self, player):
         return getattr(player, self.attribute) < self.value 
+    
+
+
     
 
     
