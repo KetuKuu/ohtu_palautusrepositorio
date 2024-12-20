@@ -1,4 +1,4 @@
-Ketterän ja perinteisen ohjelmistokehityksen suunnittelumallit ja arkkitehtuuriset haasteet
+Ohjelmistoarkkitehtuurin sisällyttäminen ketteriin ohjelmistotuotantomenetelmiin
 
 Ketterissä ohjelmistokehityksissä projekti jaetaan iteraatioihin, joiden aikana ominaisuudet 
 toteutetaan asiakkaan vaatimuksen mukaisiksi. Suunnittelu kattaa julkaisun suunnittelun, 
